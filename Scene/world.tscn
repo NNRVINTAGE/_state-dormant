@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx2e30kt505xn"]
+
+[ext_resource type="Material" uid="uid://cisw4rns4uvqg" path="res://Asset/Buttons.tres" id="1_dlwip"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Scene/controller/proto_controller.tscn" id="1_emx41"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xtl80"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_emx41"]
+sky_material = SubResource("ProceduralSkyMaterial_xtl80")
+
+[sub_resource type="Environment" id="Environment_dlwip"]
+background_mode = 2
+sky = SubResource("Sky_emx41")
+glow_enabled = true
+fog_density = 0.3213
+
+[node name="world" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.0919757, 0.491468, 0, 0.982935, 0.183951, -0.5, 0.159307, -0.851247, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_split_1 = 0.01
+directional_shadow_split_2 = 0.02
+directional_shadow_split_3 = 0.1
+directional_shadow_max_distance = 300.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dlwip")
+
+[node name="Control" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.328699, 0.632767, -1.19921)
+use_collision = true
+size = Vector3(0.730371, 1.54828, 0.4)
+
+[node name="Panel" type="CSGBox3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 0.675088, 0.737737, 0, -0.737737, 0.675088, 0.0233339, 0.376515, 0.151739)
+operation = 2
+size = Vector3(0.591431, 0.563355, 0.386475)
+
+[node name="Buttons" type="CSGSphere3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, 0.761584, -0.648067, 0, 0.648067, 0.761584, 0, 0.209128, -0.00874853)
+material_override = ExtResource("1_dlwip")
+radius = 0.169494
+rings = 12
+material = ExtResource("1_dlwip")
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+use_collision = true
+size = Vector3(200, 0.2, 200)
+
+[node name="RRSO" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.1668, 3.31943, -97.8799)
+use_collision = true
+size = Vector3(25.525, 6.8805, 0.541992)
+
+[node name="ProtoController" parent="." instance=ExtResource("1_emx41")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54649, -0.0631909, 0.355331)
+input_left = "left"
+input_right = "right"
+input_forward = "forward"
+input_back = "back"
+input_jump = "jumps"
