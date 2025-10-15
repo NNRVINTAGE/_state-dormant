@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx2e30kt505xn"]
+[gd_scene load_steps=7 format=3 uid="uid://bx2e30kt505xn"]
 
 [ext_resource type="Material" uid="uid://cisw4rns4uvqg" path="res://Asset/Buttons.tres" id="1_dlwip"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Scene/controller/proto_controller.tscn" id="1_emx41"]
+[ext_resource type="Material" uid="uid://ewbccjadby2b" path="res://Asset/whitelight.tres" id="3_ejll3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xtl80"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -14,30 +15,162 @@ sky_material = SubResource("ProceduralSkyMaterial_xtl80")
 background_mode = 2
 sky = SubResource("Sky_emx41")
 glow_enabled = true
-fog_density = 0.3213
+glow_intensity = 1.0
+glow_hdr_threshold = 0.8
+fog_enabled = true
+fog_mode = 1
+fog_density = 0.4243
+fog_sky_affect = 0.155
+fog_depth_curve = 0.517632
 
 [node name="world" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.0919757, 0.491468, 0, 0.982935, 0.183951, -0.5, 0.159307, -0.851247, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.183251, 0.465209, 0, 0.930418, 0.366501, -0.5, 0.317399, -0.805765, 0, 0, 0)
 shadow_enabled = true
-directional_shadow_split_1 = 0.01
-directional_shadow_split_2 = 0.02
-directional_shadow_split_3 = 0.1
-directional_shadow_max_distance = 300.0
+directional_shadow_split_1 = 0.05
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 650.0
+directional_shadow_pancake_size = 1024.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dlwip")
 
+[node name="ProtoController" parent="." instance=ExtResource("1_emx41")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02248, -0.0631909, 0.355331)
+base_speed = 8.0
+sprint_speed = 16.0
+input_left = "left"
+input_right = "right"
+input_forward = "forward"
+input_back = "back"
+input_jump = "jumps"
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+use_collision = true
+size = Vector3(600, 0.2, 200)
+
+[node name="Roof" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 99.5, 0)
+use_collision = true
+size = Vector3(600, 1, 200)
+
+[node name="Walls" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -100)
+size = Vector3(600, 100, 1)
+
+[node name="ventilats" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161377, 21.3986, 0)
+operation = 2
+size = Vector3(524.354, 7.46753, 2)
+
+[node name="vbp2" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, -239.254, 21.9139, -0.0685272)
+size = Vector3(2, 48.1346, 1)
+
+[node name="vbp3" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, -187.427, 21.4833, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp4" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, -132.296, 21.4833, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp5" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, -78.699, 21.483, -0.069)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp6" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, -24.7275, 21.3271, -0.0685272)
+size = Vector3(2, 54.4721, 1)
+
+[node name="vbp7" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, 30.4861, 21.2031, -0.0685272)
+size = Vector3(2, 58.6936, 1)
+
+[node name="vbp8" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, 83.0818, 21.447, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp9" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, 137.303, 21.4201, -0.0690002)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp11" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, 244.059, 21.4201, -0.0690002)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp10" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, 191.628, 21.447, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="Walls2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 100)
+size = Vector3(600, 100, 1)
+
+[node name="ventilats" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161377, 21.3986, 0)
+operation = 2
+size = Vector3(524.354, 7.46753, 2)
+
+[node name="vbp2" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, -239.254, 21.9139, -0.0685272)
+size = Vector3(2, 48.1346, 1)
+
+[node name="vbp3" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, -187.427, 21.4833, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp4" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, -132.296, 21.4833, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp5" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, -78.699, 21.483, -0.069)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp6" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, -24.7275, 21.3271, -0.0685272)
+size = Vector3(2, 54.4721, 1)
+
+[node name="vbp7" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, 30.4861, 21.2031, -0.0685272)
+size = Vector3(2, 58.6936, 1)
+
+[node name="vbp8" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, 83.0818, 21.447, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp9" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, 137.303, 21.4201, -0.0690002)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp11" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0, 0, 1, 244.059, 21.4201, -0.0690002)
+size = Vector3(2, 55.3443, 1)
+
+[node name="vbp10" type="CSGBox3D" parent="Walls2"]
+transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, 191.628, 21.447, -0.0685272)
+size = Vector3(2, 55.3443, 1)
+
+[node name="Walls3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 299, 50, 0)
+size = Vector3(2, 100, 200)
+
+[node name="Walls4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -299, 50, 0)
+size = Vector3(2, 100, 200)
+
 [node name="Control" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.328699, 0.632767, -1.19921)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.83986, 0.632767, 0.375303)
 use_collision = true
 size = Vector3(0.730371, 1.54828, 0.4)
 
 [node name="Panel" type="CSGBox3D" parent="Control"]
-transform = Transform3D(1, 0, 0, 0, 0.675088, 0.737737, 0, -0.737737, 0.675088, 0.0233339, 0.376515, 0.151739)
+transform = Transform3D(1, 0, 0, 0, 0.675088, 0.737737, 0, -0.737737, 0.675088, 0.023334, 0.359865, 0.169935)
 operation = 2
-size = Vector3(0.591431, 0.563355, 0.386475)
+size = Vector3(0.591431, 0.514027, 0.386475)
 
 [node name="Buttons" type="CSGSphere3D" parent="Control"]
 transform = Transform3D(1, 0, 0, 0, 0.761584, -0.648067, 0, 0.648067, 0.761584, 0, 0.209128, -0.00874853)
@@ -46,20 +179,32 @@ radius = 0.169494
 rings = 12
 material = ExtResource("1_dlwip")
 
-[node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-use_collision = true
-size = Vector3(200, 0.2, 200)
-
 [node name="RRSO" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -85.1668, 3.31943, -97.8799)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.1898, 4.2431, -98.9858)
 use_collision = true
-size = Vector3(25.525, 6.8805, 0.541992)
+size = Vector3(32.4579, 8.72783, 1.08789)
 
-[node name="ProtoController" parent="." instance=ExtResource("1_emx41")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.54649, -0.0631909, 0.355331)
-input_left = "left"
-input_right = "right"
-input_forward = "forward"
-input_back = "back"
-input_jump = "jumps"
+[node name="Output" type="CSGCylinder3D" parent="RRSO"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -10.6524, 0.220658, 0.606812)
+radius = 3.57324
+height = 1.61499
+sides = 20
+
+[node name="subtr" type="CSGCylinder3D" parent="RRSO/Output"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.434334, 0)
+operation = 2
+radius = 3.01172
+height = 0.865707
+sides = 20
+
+[node name="bulb" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99679, 3.92264, -1.20082)
+
+[node name="Bulb_obj" type="CSGSphere3D" parent="bulb"]
+material = ExtResource("3_ejll3")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="bulb"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0323007, 0)
+shadow_enabled = true
+shadow_normal_bias = 0.3
+omni_range = 12.7371
