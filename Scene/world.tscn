@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx2e30kt505xn"]
+[gd_scene load_steps=8 format=3 uid="uid://bx2e30kt505xn"]
 
 [ext_resource type="Material" uid="uid://cisw4rns4uvqg" path="res://Asset/Buttons.tres" id="1_dlwip"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Scene/controller/proto_controller.tscn" id="1_emx41"]
@@ -22,6 +22,9 @@ fog_mode = 1
 fog_density = 0.4243
 fog_sky_affect = 0.155
 fog_depth_curve = 0.517632
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ejll3"]
+size = Vector2(600, 10)
 
 [node name="world" type="Node3D"]
 
@@ -105,6 +108,11 @@ size = Vector3(2, 55.3443, 1)
 transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, 191.628, 21.447, -0.0685272)
 size = Vector3(2, 55.3443, 1)
 
+[node name="vwd" type="MeshInstance3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 21, 0)
+mesh = SubResource("PlaneMesh_ejll3")
+surface_material_override/0 = ExtResource("3_ejll3")
+
 [node name="Walls2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 100)
 size = Vector3(600, 100, 1)
@@ -153,6 +161,11 @@ size = Vector3(2, 55.3443, 1)
 [node name="vbp10" type="CSGBox3D" parent="Walls2"]
 transform = Transform3D(0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0, 0, 1, 191.628, 21.447, -0.0685272)
 size = Vector3(2, 55.3443, 1)
+
+[node name="vwd" type="MeshInstance3D" parent="Walls2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 21, 0)
+mesh = SubResource("PlaneMesh_ejll3")
+surface_material_override/0 = ExtResource("3_ejll3")
 
 [node name="Walls3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 299, 50, 0)
@@ -208,3 +221,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0323007, 0)
 shadow_enabled = true
 shadow_normal_bias = 0.3
 omni_range = 12.7371
+
+[node name="Cel_Struct" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 67.3818, 0)
+size = Vector3(600, 2, 2)
+
+[node name="Asmb_Claw_L" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 3.91194, -4.97895)
+radius = 2.0
+height = 1.0
+
+[node name="subtr" type="CSGCylinder3D" parent="Asmb_Claw_L"]
+transform = Transform3D(0.999997, -2.55795e-13, 3.17637e-21, 2.55795e-13, 0.999997, 2.02505e-13, -4.65868e-21, -5.32907e-14, 1, 0, -0.0566405, 0)
+operation = 2
+radius = 1.47119
+height = 1.41406
+
+[node name="subtr2" type="CSGBox3D" parent="Asmb_Claw_L"]
+transform = Transform3D(0.999994, -4.1922e-13, 5.29396e-21, 4.1922e-13, 0.999994, 3.30402e-13, -8.47033e-21, -8.88178e-14, 1, -1, -4.37114e-08, 0)
+operation = 2
+size = Vector3(2, 1.1, 5)
+
+[node name="subtr3" type="CSGBox3D" parent="Asmb_Claw_L"]
+transform = Transform3D(0.877015, -2.63771e-08, -0.480453, 1.5626e-08, 0.999994, -2.63765e-08, 0.48045, 1.56253e-08, 0.87702, 0, 6.31629e-08, 1.445)
+operation = 2
+size = Vector3(0.3, 1.1, 1)
+
+[node name="Asmb_Claw_R" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 3.91194, -4.97895)
+radius = 2.0
+height = 1.0
+
+[node name="subtr" type="CSGCylinder3D" parent="Asmb_Claw_R"]
+transform = Transform3D(0.999997, -2.55795e-13, 3.17637e-21, 2.55795e-13, 0.999997, 2.02505e-13, -4.65868e-21, -5.32907e-14, 1, 0, -0.0566405, 0)
+operation = 2
+radius = 1.47119
+height = 1.41406
+
+[node name="subtr2" type="CSGBox3D" parent="Asmb_Claw_R"]
+transform = Transform3D(0.999994, -4.1922e-13, 5.29396e-21, 4.1922e-13, 0.999994, 3.30402e-13, -8.47033e-21, -8.88178e-14, 1, 1, 0, 0)
+operation = 2
+size = Vector3(2, 1.1, 5)
+
+[node name="subtr3" type="CSGBox3D" parent="Asmb_Claw_R"]
+transform = Transform3D(0.877141, 0, 0.480223, 0, 0.999994, 0, -0.480221, 0, 0.877146, 0, 6.31629e-08, 1.445)
+operation = 2
+size = Vector3(0.3, 1.1, 1)
