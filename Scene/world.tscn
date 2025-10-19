@@ -1,8 +1,12 @@
-[gd_scene load_steps=10 format=4 uid="uid://bx2e30kt505xn"]
+[gd_scene load_steps=16 format=4 uid="uid://bx2e30kt505xn"]
 
 [ext_resource type="Material" uid="uid://cisw4rns4uvqg" path="res://Asset/Buttons.tres" id="1_dlwip"]
-[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Scene/controller/proto_controller.tscn" id="1_emx41"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://Scene/controller/Player.tscn" id="1_emx41"]
 [ext_resource type="Material" uid="uid://ewbccjadby2b" path="res://Asset/whitelight.tres" id="3_ejll3"]
+[ext_resource type="Script" uid="uid://ofsmfauyvayd" path="res://Script/Interact.gd" id="3_scul4"]
+[ext_resource type="Material" uid="uid://vuvcoc38v858" path="res://Asset/buttonsOk.tres" id="4_37axr"]
+[ext_resource type="Script" uid="uid://cu8gbsx4posi5" path="res://Script/MtrOvrd.gd" id="5_pcvp0"]
+[ext_resource type="PackedScene" uid="uid://dmvof1j18dfnd" path="res://Scene/AutoCarrier.tscn" id="7_ol2hl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xtl80"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -13,18 +17,31 @@ sky_material = SubResource("ProceduralSkyMaterial_xtl80")
 
 [sub_resource type="Environment" id="Environment_dlwip"]
 background_mode = 2
+background_energy_multiplier = 0.5
 sky = SubResource("Sky_emx41")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.95
 glow_enabled = true
 glow_intensity = 1.0
-glow_hdr_threshold = 0.8
+glow_blend_mode = 1
+glow_hdr_scale = 3.0
 fog_enabled = true
-fog_mode = 1
-fog_density = 0.4243
+fog_density = 0.005
 fog_sky_affect = 0.155
 fog_depth_curve = 0.517632
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ejll3"]
 size = Vector2(600, 10)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ejll3"]
+radius = 0.226031
+
+[sub_resource type="SphereMesh" id="SphereMesh_scul4"]
+material = ExtResource("1_dlwip")
+radius = 0.169
+height = 0.338
+radial_segments = 32
+rings = 12
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ejll3"]
 _surfaces = [{
@@ -54,6 +71,7 @@ _surfaces = [{
 transform = Transform3D(-0.866025, -0.183251, 0.465209, 0, 0.930418, 0.366501, -0.5, 0.317399, -0.805765, 0, 0, 0)
 shadow_enabled = true
 directional_shadow_split_1 = 0.05
+directional_shadow_blend_splits = true
 directional_shadow_fade_start = 1.0
 directional_shadow_max_distance = 650.0
 directional_shadow_pancake_size = 1024.0
@@ -61,8 +79,8 @@ directional_shadow_pancake_size = 1024.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dlwip")
 
-[node name="ProtoController" parent="." instance=ExtResource("1_emx41")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02248, -0.0631909, 0.355331)
+[node name="Player" parent="." instance=ExtResource("1_emx41")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.02248, -0.0631909, 2.08829)
 base_speed = 8.0
 sprint_speed = 16.0
 input_left = "left"
@@ -72,7 +90,7 @@ input_back = "back"
 input_jump = "jumps"
 
 [node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+transform = Transform3D(1.00669, 0, 0, 0, 1.00669, 0, 0, 0, 1.00669, 0, -0.2, 0)
 use_collision = true
 size = Vector3(600, 0.2, 200)
 
@@ -83,7 +101,7 @@ size = Vector3(600, 1, 200)
 
 [node name="Walls" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, -100)
-size = Vector3(600, 100, 1)
+size = Vector3(600, 100, 2)
 
 [node name="ventilats" type="CSGBox3D" parent="Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161377, 21.3986, 0)
@@ -137,7 +155,7 @@ surface_material_override/0 = ExtResource("3_ejll3")
 
 [node name="Walls2" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 100)
-size = Vector3(600, 100, 1)
+size = Vector3(600, 100, 2)
 
 [node name="ventilats" type="CSGBox3D" parent="Walls2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161377, 21.3986, 0)
@@ -191,7 +209,6 @@ surface_material_override/0 = ExtResource("3_ejll3")
 
 [node name="Walls3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 299, 50, 0)
-visible = false
 size = Vector3(2, 100, 200)
 
 [node name="Walls4" type="CSGBox3D" parent="."]
@@ -208,15 +225,25 @@ transform = Transform3D(1, 0, 0, 0, 0.675088, 0.737737, 0, -0.737737, 0.675088, 
 operation = 2
 size = Vector3(0.591431, 0.514027, 0.386475)
 
-[node name="Buttons" type="CSGSphere3D" parent="Control"]
+[node name="Buttons" type="StaticBody3D" parent="Control" node_paths=PackedStringArray("objmtr")]
 transform = Transform3D(1, 0, 0, 0, 0.761584, -0.648067, 0, 0.648067, 0.761584, 0, 0.209128, -0.00874853)
-material_override = ExtResource("1_dlwip")
-radius = 0.169494
-rings = 12
-material = ExtResource("1_dlwip")
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("3_scul4")
+objmtr = NodePath("Buttons_Obj_A1")
+changed_material = ExtResource("4_37axr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Control/Buttons"]
+shape = SubResource("SphereShape3D_ejll3")
+
+[node name="Buttons_Obj_A1" type="MeshInstance3D" parent="Control/Buttons"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+mesh = SubResource("SphereMesh_scul4")
+skeleton = NodePath("../../..")
+script = ExtResource("5_pcvp0")
 
 [node name="RRSO" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.1898, 4.2431, -98.9858)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.1898, 4.2431, -98.5858)
 use_collision = true
 size = Vector3(32.4579, 8.72783, 1.08789)
 
@@ -243,6 +270,8 @@ material = ExtResource("3_ejll3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0323007, 0)
 shadow_enabled = true
 shadow_normal_bias = 0.3
+distance_fade_enabled = true
+distance_fade_begin = 80.0
 omni_range = 12.7371
 
 [node name="Cel_Struct" type="CSGBox3D" parent="."]
@@ -318,3 +347,6 @@ size = Vector3(2, 1.1, 5)
 transform = Transform3D(0.877015, -2.63771e-08, -0.480453, 1.5626e-08, 0.999994, -2.63765e-08, 0.48045, 1.56253e-08, 0.87702, 0, 6.31629e-08, 1.445)
 operation = 2
 size = Vector3(0.3, 1.1, 1)
+
+[node name="AutoCarrier" parent="." instance=ExtResource("7_ol2hl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.4, 1, 1.8)
